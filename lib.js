@@ -17,9 +17,6 @@ const fs = require("fs");
 const YAML = require("yaml");
 const path = require("path");
 
-// INIT
-const BTC_PUBLIC_NODE = "https://bitcoin-rpc.publicnode.com";
-
 bitcoin.initEccLib(ecc);
 const ECPair = ECPairFactory(ecc);
 
@@ -45,22 +42,11 @@ console.log(`Using minimum sats threshold: ${MINIUM_SATS_THRESHOLD}`);
 
 const TARGET_CLOCK_BLOCK = 899717;
 
-const HEADERS = { "Content-Type": "application/json" };
-
-const rpc = async (method, params = []) => {
-  const res = await fetch(BTC_PUBLIC_NODE, {
-    method: "POST",
-    headers: HEADERS,
-    body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: 1,
-      method,
-      params,
-    }),
-  });
-
-  const data = await res.json();
-  return data.result;
+const getBlockCount = async () => {
+  const res = await fetch("https://mempool.space/api/blocks/tip/height");
+  if (!res.ok) throw new Error("Failed to fetch block height");
+  const text = await res.text();
+  return parseInt(text, 10);
 };
 
 const sendTx = async (signedHex) => {
@@ -241,7 +227,7 @@ const main = async (sendClockTxForAccount, resendClockTx) => {
 
   const checkAndClock = async () => {
     try {
-      const currentBlock = await rpc("getblockcount");
+      const currentBlock = await getBlockCount();
       console.log(`Current block: ${currentBlock}`);
 
       if ((currentBlock + 1 - TARGET_CLOCK_BLOCK) % 144 === 0) {
@@ -312,7 +298,7 @@ module.exports = {
   TARGET_CLOCK_BLOCK,
   ECPair,
   bitcoin,
-  rpc,
+  getBlockCount,
   selectUtxos,
   accounts,
   privateKeysArray,
