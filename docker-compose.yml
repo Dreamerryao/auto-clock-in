@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   auto-clock-in:
-    build: .
+    image: ghcr.io/dreamerryao/auto-clock-in:latest
     container_name: auto-clock-in
     volumes:
       - ./config.yaml:/app/config.yaml:ro
