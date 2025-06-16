@@ -1,8 +1,8 @@
 # 基于轻量级 Node 镜像
 FROM node:18-alpine
 
-# 安装 pnpm
-RUN npm install -g pnpm
+# 安装 pnpm 8.x（或最新）
+RUN npm install -g pnpm@8
 
 # 设置工作目录
 WORKDIR /app
