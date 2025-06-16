@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  auto-clock-in:
+    build: .
+    container_name: auto-clock-in
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    # 如需环境变量可在此添加
+    # environment:
+    #   - NODE_ENV=production 

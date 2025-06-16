@@ -65,6 +65,21 @@ pnpm install
 
 ---
 
+## 🐳 Docker Usage
+
+You can run this project easily with Docker:
+
+1. Copy `config.yaml.example` to `config.yaml` and fill in your configuration.
+2. Build and run with Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+This will start the script in Taproot input with Taproot output mode (equivalent to `node t_input_with_t_output.js`).
+
+---
+
 ## ⚠️ Disclaimer
 
 This project is **fully open-source and free of charge**.
