@@ -17,8 +17,7 @@ const fs = require("fs");
 const YAML = require("yaml");
 const path = require("path");
 
-// INIT
-const BTC_PUBLIC_NODE = "https://bitcoin-rpc.publicnode.com";
+
 
 bitcoin.initEccLib(ecc);
 const ECPair = ECPairFactory(ecc);
@@ -27,6 +26,13 @@ const ECPair = ECPairFactory(ecc);
 const configPath = path.join(__dirname, "config.yaml");
 const configFile = fs.readFileSync(configPath, "utf8");
 const config = YAML.parse(configFile);
+
+// INIT
+const BTC_PUBLIC_NODE = config.rpc;
+console.log(`Using btc rpc: ${BTC_PUBLIC_NODE}`);
+if (!BTC_PUBLIC_NODE) {
+  throw new Error("rpc must be defined in config.yaml");
+}
 
 const mnemonics = config.mnemonics;
 console.log(`Using ${mnemonics.length} mnemonics`);

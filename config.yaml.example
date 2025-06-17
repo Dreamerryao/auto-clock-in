@@ -8,3 +8,4 @@ mnemonics:
 target_fee_rate: 6
 max_fee_rate: 20
 minimum_sats_threshold: 546 
+rpc: "https://your_rpc"
