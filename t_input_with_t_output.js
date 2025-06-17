@@ -130,7 +130,10 @@ const resendClockTx = async (
 
     psbt.addOutput({ address: account.taproot.address, value: 546 });
     psbt.addOutput({ script: protostone, value: 0 });
-    psbt.addOutput({ address: p2tr.address, value: changeValue - 546 });
+    // ignore dust output
+    if (changeValue - 546 > 330) {
+      psbt.addOutput({ address: p2tr.address, value: changeValue - 546 });
+    }
     psbt.signAllInputs(signer);
     psbt.finalizeAllInputs();
     const signedHex = psbt.extractTransaction().toHex();

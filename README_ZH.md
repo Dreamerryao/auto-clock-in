@@ -66,6 +66,21 @@ pnpm install
 
 ---
 
+## 🐳 Docker 使用方法
+
+你可以通过 Docker 快速运行本项目：
+
+1. 复制 `config.yaml.example` 为 `config.yaml` 并填写配置信息。
+2. 使用 Docker Compose 构建并运行：
+
+```bash
+docker-compose up --build
+```
+
+这会以"Taproot输入，包含Taproot输出"模式启动脚本（等同于 `node t_input_with_t_output.js`）。
+
+---
+
 ## ⚠️ 免责声明
 
 本脚本**完全免费、开源**，代码中不包含任何窃取私钥的逻辑。
